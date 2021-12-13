@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>두번째 연습 테이블 만들기</title>
+<meta charset = "UTF-8">
+<style>
+    div{background-color: green;}
+</style>
+</head>
+<body>
+<h1>두번째 연습</h1>
+<p>지금까지 배운 것을 정리해 봅시다.</p><br><br>
+<h2>요약하기</h2>
+<p>테이블을 적용하기 위해 <span style = "color : red">&lt;table&gt;</span>요소 사용</p>
+<p>목록화 하기 위해서 &lt;ul&gt;과 &lt;ol&gt; 요소 사용</p>
+
+<div name = "테이블구역" background-color = "green">
+    <table border="1">
+        <h3>실습</h3>
+    <thead>
+        <tr>
+            <th>무순서 리스트</th>
+            <th>순서 리스트</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <ul style="list-style-type: georgian;">
+                    <li><a href = "https://daum.net" target="_blank">Daum</a></li>
+                    <li><a href = "https://google.com" target="_blank">Google</a></li>
+                    <li><a href = "https://naver.com" target="_blank">NAVER</a></li>
+                </ul>
+            </td>
+            <td>국내 포털 순위<br>(2017년 상반기)<br><br>
+                <ol type="1">
+                    <li>Naver(87%)</li>
+                    <li value="3">Daum(10%)</li>
+                    <li value="5">Google(0.36%)</li>
+                </ol>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</body>
+</html>
