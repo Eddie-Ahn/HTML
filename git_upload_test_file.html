@@ -3,14 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <title>JavaScript Apply</title>    
-    <script src="exampleDate.js"></script>
   </head>
   <body>
+    <h1>동등 연산자와 일치 연산자 확인하기</h1>
+    <script>
+      var x = 3, y = '3', z = 3;
+      document.write((x == y) + '<br>');
+      document.write((x === y) + '<br>');
+      document.write((x === z));
 
-    <h1>head 태그 내의 자바스크립트</h1>
-    <p>자바스크립트를 이용하면 현재 날짜와 시간 정보에도 손쉽게 접근가능</p>
-    <button onclick="printDate()">현재 날짜와 시간 표시하기</button>
-    <p id="date"></p>
-
+    </script>
   </body>
 </html>
