@@ -1,0 +1,87 @@
+# %%
+import pandas as pd
+import numpy as np
+
+# %%
+# 필요한 값 : 회차, 로또번호
+
+# %%
+# 크롤링 먼저 가져오기
+import requests
+from bs4 import BeautifulSoup
+
+lotto_win_num_list_total = []
+for i in range(2000):
+    url = 'https://dhlottery.co.kr/gameResult.do?method=byWin&drwNo={}'.format(i)
+    req = requests.get(url)
+    soup = BeautifulSoup(req.text, 'html.parser')
+    tex = soup.find('div', attrs={'class', 'num win'}).get_text()
+    num_list = tex.split('\n')[3:9]
+    lotto_win_num_list_total.append({'회차' : i, '당첨번호' : num_list})
+
+# 생성한 로또 넘버 total 리스트를 데이터프레임 변수인 df 로 선언
+df = pd.DataFrame(lotto_win_num_list_total)
+
+#%%
+df = pd.read_csv('로또번호당첨이력.csv', encoding='utf-8')
+print(df)
+
+#%%    
+# 로또 번호 생성 후 몇회차 당첨인지 찾아보기
+# 로또 번호 뽑기위한 random 모듈 가져옴
+def lotto_creator_and_check():
+    import random
+    global lotto_number_creator  # lotto_number_creator 를 함수 밖에서도 호출할 수 있게 global 전역변수로 지정
+    num_list = []
+    for i in range(47):
+        num_list.append(i)
+    lotto_number_creator = random.sample(num_list, 6) # 6개 숫자를 뽑음
+    lotto_number_creator = sorted(lotto_number_creator, reverse=False) # 숫자 비교를 위해 오름차순 만들기 
+    lotto_number_creator = str(list(map(str, lotto_number_creator))) # 리스트 안의 숫자를 문자로 변환
+
+    # df 에서 lotto_number_creator 가 몇회에 나오는지 검색하기
+    global winned_episode
+    winned_episode = df[df['당첨번호'].isin([lotto_number_creator])]
+    
+    return winned_episode
+
+#%%
+
+if lotto_creator_and_check().empty:
+    print('이건 비었음')
+else :
+    print('뭔가가 걸렸음')
+
+#%%
+try_num = 0
+while True:
+    try_num = try_num + 1
+    # 함수로 winned_episode 를 만드는 함수가 필요. 
+    lotto_creator_and_check()    
+    if lotto_creator_and_check().empty :
+        continue
+    else:
+        print('생성시도 횟수는 ' + str(try_num))
+        print('로또생성번호는'+str(lotto_number_creator))
+        print(winned_episode)
+        break
+
+
+
+# %%
+# isin test
+
+df2 = pd.DataFrame({'회차': ['a','b','c','d','e','f'], '당첨번호' : [1,2,3,4,5,6]})
+df2
+
+test_num = df['당첨번호'][2]
+test_num
+
+# df[df.loc['당첨번호'] == test_num]
+test_num2 = df2['당첨번호'][2]
+test_num2
+
+df2[df2['당첨번호'].isin([test_num2])]
+
+
+

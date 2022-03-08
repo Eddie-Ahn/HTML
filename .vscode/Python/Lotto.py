@@ -133,3 +133,8 @@ btn_login.config(text = '로그인')
 btn_login.pack()
 
 win.mainloop()
+
+'''
+1. 로또 번호 크롤링 + 변수에 저장하기 
+2. 
+'''
